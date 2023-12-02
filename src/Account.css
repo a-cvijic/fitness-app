@@ -1,0 +1,18 @@
+/* Account.css */
+div {
+    width: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  p {
+    margin: 10px 0;
+    line-height: 1.5;
+  }
+  

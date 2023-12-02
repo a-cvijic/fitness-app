@@ -1,0 +1,35 @@
+.equipment-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .equipment-item {
+    border-left: 4px solid #ff9800;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #e8e8e8;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .equipment-item:hover {
+    background-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .equipment-name {
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  
+  .equipment-availability {
+    font-size: 1rem;
+    color: #666;
+  }
+  

@@ -1,0 +1,32 @@
+.fitness-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .fitness-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .fitness-class {
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .fitness-class-name {
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 700;
+  }
+  
+  .fitness-class-description {
+    font-size: 1rem;
+    color: #666;
+  }
+  
