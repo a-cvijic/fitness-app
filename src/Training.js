@@ -31,7 +31,7 @@ const Training = () => {
           <p className="training-description">
             Description: {program.description}
           </p>
-          {/* You can display other fields like participants and progress here */}
+          {}
         </div>
       ))}
     </div>
