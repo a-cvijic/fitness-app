@@ -4,7 +4,7 @@ function FitnessUsersTable() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/fitness_users')
+    fetch('http://studentdocker.informatika.uni-mb.si:11096/fitness_users/')
       .then(response => response.json())
       .then(data => setUsers(data))
       .catch(error => console.error('Error:', error));
