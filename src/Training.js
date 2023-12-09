@@ -5,7 +5,7 @@ const Training = () => {
   const [trainingPrograms, setTrainingPrograms] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/training")
+    fetch("http://localhost:11094/api/training")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
