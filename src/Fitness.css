@@ -1,32 +1,70 @@
-.fitness-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+.fitness-table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fitness-table thead {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.fitness-table thead th {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 12px 8px;
+}
+
+.fitness-table tbody td {
+  padding: 8px;
+  color: #333333;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.fitness-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.fitness-table tbody tr:nth-child(odd) {
+  background-color: #f4f4f4;
+}
+
+.fitness-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.fitness-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fitness-table thead {
+    display: none; /* Hide the table header on small screens */
   }
-  
-  .fitness-list {
-    list-style: none;
-    padding: 0;
+
+  .fitness-table tbody td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
-  
-  .fitness-class {
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+
+  .fitness-table tbody tr {
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
   }
-  
-  .fitness-class-name {
-    font-size: 1.25rem;
-    color: #333;
-    font-weight: 700;
+
+  .fitness-table tbody td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    color: #4CAF50;
   }
-  
-  .fitness-class-description {
-    font-size: 1rem;
-    color: #666;
+
+  .fitness-table tbody td:last-child {
+    border-bottom: 2px solid #4CAF50;
   }
-  
+}

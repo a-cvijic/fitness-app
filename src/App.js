@@ -8,6 +8,7 @@ import Training from "./Training";
 import Equipment from "./Equipment";
 import Login from "./Login";
 import Footer from "./Footer";
+import Register from "./Register";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,11 +35,16 @@ function App() {
             Logout
           </button>
         ) : (
-          <Link to="/login" className="nav-link">
-            Login
-          </Link>
-        )}
-      </nav>
+          <>
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+            <Link to="/register" className="nav-link">
+              Register
+            </Link>
+            </>
+            )}
+            </nav>
       <div className="App">
         <Routes>
           <Route path="/booking" element={<Booking />} />
@@ -48,6 +54,7 @@ function App() {
           {/* Routes for Training and Equipment would likely still exist, they're just not in the top nav */}
           <Route path="/training" element={<Training />} />
           <Route path="/equipment" element={<Equipment />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
       {/* Include the Footer at the bottom of your app */}

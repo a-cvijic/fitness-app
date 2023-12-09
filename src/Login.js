@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(username, password);
+    onLogin(mail, password);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Username:</label>
+        <label>Mail:</label>
         <input
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={mail}
+          onChange={(e) => setMail(e.target.value)}
           required
         />
       </div>

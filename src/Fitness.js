@@ -1,41 +1,68 @@
-import React from "react";
-import "./Fitness.css";
+import React, { useState, useEffect } from 'react';
 
-const Fitness = () => {
-  const fitnessClasses = [
-    {
-      id: 1,
-      name: "Yoga",
-      description: "A relaxing class focused on stretching and mindfulness",
-    },
-    {
-      id: 2,
-      name: "HIIT",
-      description: "High-Intensity Interval Training for a fast-paced workout.",
-    },
-    {
-      id: 3,
-      name: "Pilates",
-      description:
-        "Improve your strength and flexibility with controlled movements.",
-    },
-  ];
+function FitnessPlacesTable() {
+  const [places, setPlaces] = useState([]);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+
+  useEffect(() => {
+    fetch('http://localhost:4000/fitness_places')
+      .then(response => response.json())
+      .then(data => setPlaces(data))
+      .catch(error => console.error('Error:', error));
+  }, []);
+
+  const sortedPlaces = React.useMemo(() => {
+    let sortablePlaces = [...places];
+    if (sortConfig !== null) {
+      sortablePlaces.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return sortablePlaces;
+  }, [places, sortConfig]);
+
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction });
+  };
 
   return (
-    <div className="fitness-container">
-      <h2>Fitness Classes</h2>
-      <ul className="fitness-list">
-        {fitnessClasses.map((fitnessClass) => (
-          <li key={fitnessClass.id} className="fitness-class">
-            <h3 className="fitness-class-name">{fitnessClass.name}</h3>
-            <p className="fitness-class-description">
-              {fitnessClass.description}
-            </p>
-          </li>
-        ))}
-      </ul>
+    <div>
+      <button onClick={() => requestSort('size')}>Sort by Size</button>
+      <button onClick={() => requestSort('fee')}>Sort by Fee</button>
+      <table className="fitness-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Place</th>
+            <th>Size</th>
+            <th>Fee</th>
+            <th>Trainings Available</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedPlaces.map((place, index) => (
+            <tr key={index}>
+              <td>{place.name}</td>
+              <td>{place.place}</td>
+              <td>{place.size}</td>
+              <td>{place.fee}</td>
+              <td>{place.trainings_available}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-};
+}
 
-export default Fitness;
+export default FitnessPlacesTable;

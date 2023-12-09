@@ -1,18 +1,70 @@
-/* Account.css */
-div {
-    width: 300px;
-    margin: 20px auto;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.fitness-users {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.fitness-users thead {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+
+.fitness-users thead th {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 12px 8px;
+}
+
+.fitness-users tbody td {
+  padding: 8px;
+  color: #333333;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.fitness-users tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.fitness-users tbody tr:nth-child(odd) {
+  background-color: #f4f4f4;
+}
+
+.fitness-users tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.fitness-users tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fitness-users thead {
+    display: none; /* Hide the table header on small screens */
   }
-  
-  h2 {
-    text-align: center;
+
+  .fitness-users tbody td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
-  
-  p {
-    margin: 10px 0;
-    line-height: 1.5;
+
+  .fitness-users tbody tr {
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
   }
-  
+
+  .fitness-users tbody td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    color: #4CAF50;
+  }
+
+  .fitness-users tbody td:last-child {
+    border-bottom: 2px solid #4CAF50;
+  }
+}
