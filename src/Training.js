@@ -3,8 +3,18 @@ import "./Training.css";
 
 const Training = () => {
   const [trainingPrograms, setTrainingPrograms] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [newProgram, setNewProgram] = useState({
+    name: "",
+    duration: "",
+    description: "",
+  });
 
   useEffect(() => {
+    fetchTrainingPrograms();
+  }, []);
+
+  const fetchTrainingPrograms = () => {
     fetch("http://studentdocker.informatika.uni-mb.si:11094/api/training")
       .then((response) => {
         if (!response.ok) {
@@ -13,13 +23,30 @@ const Training = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data); // Log the data received from the API
         setTrainingPrograms(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []);
+  };
+
+  const deleteTrainingProgram = (trainingID) => {
+    fetch(
+      `http://studentdocker.informatika.uni-mb.si:11094/api/training/${trainingID}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        fetchTrainingPrograms(); // Re-fetch the training programs after deletion
+      })
+      .catch((error) => {
+        console.error("Error deleting training program:", error);
+      });
+  };
 
   return (
     <div className="training-container">
@@ -31,7 +58,9 @@ const Training = () => {
           <p className="training-description">
             Description: {program.description}
           </p>
-          {}
+          <button onClick={() => deleteTrainingProgram(program.trainingID)}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
