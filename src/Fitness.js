@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function FitnessPlacesTable() {
   const [places, setPlaces] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
 
   useEffect(() => {
-    fetch('http://localhost:4000/fitness_places')
-      .then(response => response.json())
-      .then(data => setPlaces(data))
-      .catch(error => console.error('Error:', error));
+    fetch("http://studentdocker.informatika.uni-mb.si:11097/fitness_places")
+      .then((response) => response.json())
+      .then((data) => setPlaces(data))
+      .catch((error) => console.error("Error:", error));
   }, []);
 
   const sortedPlaces = React.useMemo(() => {
@@ -16,10 +19,10 @@ function FitnessPlacesTable() {
     if (sortConfig !== null) {
       sortablePlaces.sort((a, b) => {
         if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
+          return sortConfig.direction === "ascending" ? -1 : 1;
         }
         if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
+          return sortConfig.direction === "ascending" ? 1 : -1;
         }
         return 0;
       });
@@ -28,17 +31,21 @@ function FitnessPlacesTable() {
   }, [places, sortConfig]);
 
   const requestSort = (key) => {
-    let direction = 'ascending';
-    if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
-      direction = 'descending';
+    let direction = "ascending";
+    if (
+      sortConfig &&
+      sortConfig.key === key &&
+      sortConfig.direction === "ascending"
+    ) {
+      direction = "descending";
     }
     setSortConfig({ key, direction });
   };
 
   return (
     <div>
-      <button onClick={() => requestSort('size')}>Sort by Size</button>
-      <button onClick={() => requestSort('fee')}>Sort by Fee</button>
+      <button onClick={() => requestSort("size")}>Sort by Size</button>
+      <button onClick={() => requestSort("fee")}>Sort by Fee</button>
       <table className="fitness-table">
         <thead>
           <tr>

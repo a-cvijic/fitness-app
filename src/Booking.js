@@ -9,7 +9,7 @@ function Booking() {
   const userId = 1;
 
   useEffect(() => {
-    fetch("http://localhost:11094/api/training")
+    fetch("http://studentdocker.informatika.uni-mb.si:11090/bookings")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -26,7 +26,7 @@ function Booking() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:11092/time-slots")
+    fetch("http://studentdocker.informatika.uni-mb.si:11092/time-slots")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -52,24 +52,27 @@ function Booking() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await fetch("http://localhost:11090/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          selectedTimeSlot,
-          bookingDate,
-          userId
-        }),
-      });
-  
+      const response = await fetch(
+        "http://studentdocker.informatika.uni-mb.si:11090/bookings",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            selectedTimeSlot,
+            bookingDate,
+            userId,
+          }),
+        }
+      );
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-  
+
       const data = await response.json();
       console.log("Booking successful:", data);
     } catch (error) {
@@ -77,7 +80,9 @@ function Booking() {
     }
   };
 
-  const filteredTimeSlots = timeSlots.filter((time) => time.trainingId == classType);
+  const filteredTimeSlots = timeSlots.filter(
+    (time) => time.trainingId === classType
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -89,9 +94,7 @@ function Booking() {
       >
         <option value="">Select a class</option>
         {trainingPrograms.map((program) => (
-          <option value={program.id}>
-            {program.name}
-          </option>
+          <option value={program.id}>{program.name}</option>
         ))}
       </select>
       <br></br>
@@ -103,9 +106,7 @@ function Booking() {
       >
         <option value="">Select a time slot</option>
         {filteredTimeSlots.map((time) => (
-          <option value={time.id}>
-            {time.startTime}
-          </option>
+          <option value={time.id}>{time.startTime}</option>
         ))}
       </select>
       <br></br>
