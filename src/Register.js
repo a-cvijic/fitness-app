@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function RegistrationForm() {
     const [formData, setFormData] = useState({
         name: '',
-        dateOfBirth: '',
+        surname: '',
         gender: '',
         membership: '',
         email: '',
@@ -12,19 +14,22 @@ function RegistrationForm() {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        const newValue = name === 'membership' && value ? parseInt(value, 10) : value;
+        setFormData({ ...formData, [name]: newValue });
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:8000/fitness_users', {
+            const response = await fetch('http://studentdocker.informatika.uni-mb.si:11096/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     name: formData.name,
-                    date_of_birth: formData.dateOfBirth,
+                    surname: formData.surname,
                     gender: formData.gender,
                     membership: formData.membership,
                     email: formData.email,
@@ -32,15 +37,19 @@ function RegistrationForm() {
                 })
             });
             if (!response.ok) {
-                throw new Error('Newtork is not working');
+                throw new Error('Network request failed');
             }
-            console.log("Success!");
+            const result = await response.json();
+            toast.success(result.message || "Registration successful!");
         } catch (error) {
+            toast.error("Error during registration: " + error.message);
             console.error("Error during registration", error);
         }
     }
 
     return (
+        <>
+         <ToastContainer />
         <form onSubmit={handleSubmit}>
             <label htmlFor="name">Name</label>
             <input
@@ -58,17 +67,6 @@ function RegistrationForm() {
                 id="surname"
                 name="surname"
                 value={formData.surname}
-                onChange={handleChange}
-                required
-            />
-
-
-            <label htmlFor="dateOfBirth">Date of birth</label>
-            <input
-                type="text"
-                id="dateOfBirth"
-                name="dateOfBirth"
-                value={formData.dateOfBirth}
                 onChange={handleChange}
                 required
             />
@@ -97,10 +95,16 @@ function RegistrationForm() {
                 required
 
                 >
-                <option value="">Choose gym</option>
                 <option value='1'>Zdravje in noč</option>
                 <option value="2">UniFit</option>
                 <option value="3">Fit Gym</option>
+                <option value="4">Boom Gym</option>
+                <option value='5'>Slim fit</option>
+                <option value="6">Gym Bro</option>
+                <option value="7">Yoga Center</option>
+                <option value="8">Žogica</option>
+                <option value="9">Carpe Diem</option>
+                <option value="10">Sunny Side of London</option>
             </select>
 
             <label htmlFor="email">E-mail</label>
@@ -125,7 +129,7 @@ function RegistrationForm() {
 
             <button type="submit">Registration</button>
         </form>
+    </>
     );
 }
-
 export default RegistrationForm;
