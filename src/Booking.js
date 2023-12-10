@@ -9,7 +9,7 @@ function Booking() {
   const userId = 1;
 
   useEffect(() => {
-    fetch("http://studentdocker.informatika.uni-mb.si:11090/bookings")
+    fetch("http://studentdocker.informatika.uni-mb.si:11094/api/training")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -81,7 +81,7 @@ function Booking() {
   };
 
   const filteredTimeSlots = timeSlots.filter(
-    (time) => time.trainingId === classType
+    (time) => time.trainingId == classType
   );
 
   return (
@@ -94,7 +94,7 @@ function Booking() {
       >
         <option value="">Select a class</option>
         {trainingPrograms.map((program) => (
-          <option value={program.id}>{program.name}</option>
+          <option value={program.trainingID}>{program.name}</option>
         ))}
       </select>
       <br></br>
