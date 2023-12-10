@@ -3,13 +3,6 @@ import "./Training.css";
 
 const Training = () => {
   const [trainingPrograms, setTrainingPrograms] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [newProgram, setNewProgram] = useState({
-    name: "",
-    duration: "",
-    description: "",
-  });
-
   useEffect(() => {
     fetchTrainingPrograms();
   }, []);
