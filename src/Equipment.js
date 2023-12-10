@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Equipment.css";
 
-const equipmentList = [
-  { id: 1, name: "Treadmill", availability: "In stock" },
-  { id: 2, name: "Dumbbell Set", availability: "3 sets left" },
-  { id: 3, name: "Yoga Mat", availability: "Out of stock" },
-];
-
 const Equipment = () => {
+  const [equipmentList, setEquipments] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:11091/equipments")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setEquipments(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
     <div className="equipment-container">
       <h2>Gym Equipment</h2>
@@ -15,7 +28,16 @@ const Equipment = () => {
         <div key={item.id} className="equipment-item">
           <h3 className="equipment-name">{item.name}</h3>
           <p className="equipment-availability">
-            Availability: {item.availability}
+            Availability: {item.isAvailable}
+          </p>
+          <p className="equipment-availability">
+            Quantity: {item.quantity}
+          </p>
+          <p className="equipment-availability">
+            Last maintenance date: {item.lastMaintenanceDate}
+          </p>
+          <p className="equipment-availability">
+            Fitness: {item.fitnessId}
           </p>
         </div>
       ))}
