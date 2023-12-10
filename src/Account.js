@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 function FitnessUsersTable() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("http://studentdocker.informatika.uni-mb.si:11096/fitness_users")
-      .then((response) => response.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Error:", error));
+    fetch('http://studentdocker.informatika.uni-mb.si:11096/fitness_users')
+      .then(response => response.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error('Error:', error));
   }, []);
 
   return (
@@ -16,22 +16,22 @@ function FitnessUsersTable() {
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>Date Of Birth</th>
+          <th>Surname</th>
           <th>Gender</th>
           <th>Membership</th>
         </tr>
       </thead>
       <tbody>
-        {users.map((users, index) => (
-          <tr key={index}>
-            <td>{users._id}</td>
-            <td>{users.name}</td>
-            <td>{users.date_of_birth}</td>
-            <td>{users.gender}</td>
-            <td>{users.membership}</td>
-          </tr>
-        ))}
-      </tbody>
+  {users.map((users, index) => (
+    <tr key={index}>
+      <td>{users._id}</td>
+      <td>{users.name}</td>
+      <td>{users.surname}</td>
+      <td>{users.gender}</td>
+      <td>{users.membership}</td>
+    </tr>
+  ))}
+</tbody>
     </table>
   );
 }
