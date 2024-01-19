@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    image: aleksac0/trainws:alpine
+    ports:
+      - "11094:3000"
+    expose:
+      - "3000"
+    networks:
+      - rv3_1
+
+networks:
+  rv3_1:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: "10.25.0.0/16"
