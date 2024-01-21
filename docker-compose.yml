@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    image: aleksac0/front-end:2.0
+    ports:
+      - "11093:80"
+    expose:
+      - "80"
+    networks:
+      - rv3_1
+      - rabbit
+
+networks:
+  rv3_1:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: "10.25.0.0/16"
